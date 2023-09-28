@@ -1,0 +1,58 @@
+name: Generate Turn
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+  schedule:
+    - cron: '1 * * * *'
+
+jobs:
+  set-vars:
+    name: Read Config
+    runs-on: ubuntu-latest
+    outputs:
+      nations: ${{ steps.config.outputs.nations }}
+    steps:
+      - id: config
+        run: |
+          echo "nations=svinks,gobbos" >>"$GITHUB_OUTPUT"
+
+  generate-orders:
+    name: Generate Orders
+    runs-on: ubuntu-latest
+    needs: set-vars
+#    strategy:
+#      matrix:
+#        nation: 
+#
+    steps:
+      - run: |
+          echo ${{ needs.set-vars.outputs.nations }}
+
+#      - uses: actions/checkout@v3
+#
+#      - uses:
+#
+
+#  generate-shards:
+#    name: Generate Shards
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - uses: actions/checkout@v3
+
+#
+#
+#  process-shards:
+#    name: Process Shards
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - uses: actions/checkout@v3
+
